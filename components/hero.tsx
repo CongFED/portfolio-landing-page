@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { useLanguage } from "@/lib/language-context";
+import { translations } from "@/lib/translations";
 
 interface HeroProps {
   setActiveSection: (section: string) => void;
@@ -21,7 +23,8 @@ export default function Hero({ setActiveSection }: HeroProps) {
     element?.scrollIntoView({ behavior: "smooth" });
     setActiveSection("about");
   };
-
+  const { language, setLanguage } = useLanguage();
+  const t = translations[language];
   return (
     <section
       id="home"
@@ -42,22 +45,20 @@ export default function Hero({ setActiveSection }: HeroProps) {
           {/* Main heading */}
           <div className="mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
             <h2 className="text-gray-400 text-lg md:text-xl mb-4 font-medium tracking-wide">
-              Welcome to my portfolio
+              {t.hero.welcome}
             </h2>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent leading-tight">
               PHUOCONGDEV
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 mb-8 font-light leading-relaxed">
-              Fullstack Developer
+              {t.hero.title}
             </p>
           </div>
 
           {/* Description */}
           <div className="mb-12 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">
             <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-              Tôi xây dựng các ứng dụng web hiện đại với trải nghiệm người dùng
-              tuyệt vời. Chuyên biệt trong React, Next.js và thiết kế giao diện
-              đẹp mắt.
+              {t.hero.description}
             </p>
           </div>
 
@@ -67,7 +68,7 @@ export default function Hero({ setActiveSection }: HeroProps) {
               onClick={handleScroll}
               className="px-8 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 hover:scale-105 cursor-pointer"
             >
-              View My Work
+              {t.hero.viewWork}
             </button>
             <button
               onClick={() => {
@@ -77,14 +78,14 @@ export default function Hero({ setActiveSection }: HeroProps) {
               }}
               className="px-8 py-3 border border-cyan-400 text-cyan-400 font-semibold rounded-lg hover:bg-cyan-400/10 transition-all duration-300 cursor-pointer"
             >
-              Get In Touch
+              {t.hero.getInTouch}
             </button>
           </div>
         </div>
 
         {/* Scroll indicator */}
         <div
-          className="absolute bottom-0 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer"
+          className="absolute bottom-[-180px] left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer"
           onClick={() => {
             const element = document.getElementById("about");
             element?.scrollIntoView({ behavior: "smooth" });

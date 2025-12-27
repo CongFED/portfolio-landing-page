@@ -1,17 +1,19 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import ProjectCard from "./project-card"
-import { ExternalLink } from "lucide-react"
+import { useState, useEffect } from "react";
+import ProjectCard from "./project-card";
+import { ExternalLink } from "lucide-react";
+import { useLanguage } from "@/lib/language-context";
+import { translations } from "@/lib/translations";
 
 interface Project {
-  id: number
-  title: string
-  category: string
-  description: string
-  image: string
-  link: string
-  technologies: string[]
+  id: number;
+  title: string;
+  category: string;
+  description: string;
+  image: string;
+  link: string;
+  technologies: string[];
 }
 
 const projects: Project[] = [
@@ -69,38 +71,41 @@ const projects: Project[] = [
     link: "#",
     technologies: ["React", "TypeScript", "Recharts", "Redux"],
   },
-]
+];
 
 export default function Projects() {
-  const [selectedCategory, setSelectedCategory] = useState("All")
-  const [isVisible, setIsVisible] = useState(false)
-  const [filteredProjects, setFilteredProjects] = useState(projects)
-
-  const categories = ["All", "Website", "Web App"]
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [isVisible, setIsVisible] = useState(false);
+  const [filteredProjects, setFilteredProjects] = useState(projects);
+  const { language, setLanguage } = useLanguage();
+  const t = translations[language];
+  const categories = [t.projects.all, t.projects.website, t.projects.webapp];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true)
+          setIsVisible(true);
         }
       },
-      { threshold: 0.1 },
-    )
+      { threshold: 0.1 }
+    );
 
-    const element = document.getElementById("projects")
-    if (element) observer.observe(element)
+    const element = document.getElementById("projects");
+    if (element) observer.observe(element);
 
-    return () => observer.disconnect()
-  }, [])
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (selectedCategory === "All") {
-      setFilteredProjects(projects)
+      setFilteredProjects(projects);
     } else {
-      setFilteredProjects(projects.filter((p) => p.category === selectedCategory))
+      setFilteredProjects(
+        projects.filter((p) => p.category === selectedCategory)
+      );
     }
-  }, [selectedCategory])
+  }, [selectedCategory]);
 
   return (
     <section id="projects" className="py-20 px-4 relative">
@@ -108,10 +113,14 @@ export default function Projects() {
 
       <div className="max-w-6xl mx-auto relative z-10">
         <div
-          className={`text-center mb-16 transform transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          className={`text-center mb-16 transform transition-all duration-700 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Featured Projects</h2>
-          <p className="text-gray-400 text-lg">Các dự án nổi bật được chọn lọc kỹ lưỡng</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            {t.projects.title}
+          </h2>
+          <p className="text-gray-400 text-lg">{t.projects.subtitle}</p>
         </div>
 
         {/* Category Filter */}
@@ -134,18 +143,23 @@ export default function Projects() {
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} isVisible={isVisible} />
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={index}
+              isVisible={isVisible}
+            />
           ))}
         </div>
 
         {/* View All Button */}
         <div className="text-center mt-16">
-          <button className="px-8 py-3 border border-cyan-400 text-cyan-400 font-semibold rounded-lg hover:bg-cyan-400/10 transition-all duration-300 flex items-center gap-2 mx-auto">
-            View All Projects
+          <button className="px-8 py-3 border border-cyan-400 text-cyan-400 font-semibold rounded-lg hover:bg-cyan-400/10 transition-all duration-300 flex items-center gap-2 mx-auto cursor-pointer">
+            {t.projects.viewAll}
             <ExternalLink size={18} />
           </button>
         </div>
       </div>
     </section>
-  )
+  );
 }

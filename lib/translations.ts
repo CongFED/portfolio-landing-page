@@ -11,7 +11,7 @@ export const translations = {
     hero: {
       welcome: "Welcome to my portfolio",
       name: "Phuoc Cong",
-      title: "Fullstack Developer & UI/UX Designer",
+      title: "Fullstack Developer",
       description:
         "I build modern web applications with excellent user experience. Specialized in React, Next.js and beautiful UI design.",
       viewWork: "View My Work",
@@ -53,16 +53,24 @@ export const translations = {
         messagePlaceholder: "Your message...",
         send: "Send Message",
         sent: "✓ Sent!",
+        phone:"Phone"
       },
       direct: "Direct Contact",
       phone: "Phone",
       location: "Location",
       followMe: "Follow me on",
+          sending:"Sending...",
+      sent:"✓ Sent!",
+      SendAMessage:"Send a message",
     },
     // Footer
     footer: {
       allRights: "All rights reserved.",
       crafted: "Crafted with ❤️ using Next.js, React & Tailwind CSS",
+      home:"Home",
+      about:"About",
+      projects:"Projects",
+      contact:"Contact"
     },
   },
   vi: {
@@ -77,7 +85,7 @@ export const translations = {
     hero: {
       welcome: "Chào mừng đến portfolio của tôi",
       name: "PHUOCONGDEV",
-      title: "Fullstack Developer & UI/UX Designer",
+      title: "Fullstack Developer",
       description:
         "Tôi xây dựng các ứng dụng web hiện đại với trải nghiệm người dùng tuyệt vời. Chuyên biệt trong React, Next.js và thiết kế giao diện đẹp mắt.",
       viewWork: "Xem Dự Án Của Tôi",
@@ -119,16 +127,25 @@ export const translations = {
         messagePlaceholder: "Nội dung của bạn...",
         send: "Gửi Tin Nhắn",
         sent: "✓ Đã gửi!",
+        phone:"Số điện thoại"
       },
       direct: "Liên Hệ Trực Tiếp",
       phone: "Điện Thoại",
       location: "Địa Điểm",
       followMe: "Theo dõi tôi trên",
+  
+       sending:"Đang gửi...",
+      sent:"✓ Đã gửi!",
+      SendAMessage:"Gửi tin nhắn"
     },
     // Footer
     footer: {
       allRights: "Bản quyền được bảo lưu.",
       crafted: "Được tạo bằng ❤️ sử dụng Next.js, React & Tailwind CSS",
+        home:"Trang Chủ",
+      about:"Giới Thiệu",
+      projects:"Dự Án",
+      contact:"Liên Hệ"
     },
   },
 }

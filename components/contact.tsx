@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import { Mail, Linkedin, Github, Twitter, Facebook } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import emailjs from "@emailjs/browser";
+import { useLanguage } from "@/lib/language-context";
+import { translations } from "@/lib/translations";
 export default function Contact() {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -35,7 +37,8 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const { ref, style } = useScrollAnimation();
   const [loading, setLoading] = useState(false);
-
+  const { language, setLanguage } = useLanguage();
+  const t = translations[language];
   const handleChange =
     (field: string) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -107,11 +110,9 @@ export default function Contact() {
           }`}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Get In Touch
+            {t.contact.title}
           </h2>
-          <p className="text-gray-400 text-lg">
-            Hãy liên lạc với tôi để thảo luận về dự án hoặc hợp tác
-          </p>
+          <p className="text-gray-400 text-lg">{t.contact.subtitle}</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-12">
@@ -125,20 +126,23 @@ export default function Contact() {
             }`}
           >
             <div>
-              <label className="block text-white font-semibold mb-2">Tên</label>
+              <label className="block text-white font-semibold mb-2">
+                {" "}
+                {t.contact.form.name}
+              </label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange("name")}
                 className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300"
-                placeholder="Tên của bạn"
+                placeholder={t.contact.form.namePlaceholder}
                 required
               />
             </div>
             <div>
               <label className="block text-white font-semibold mb-2">
-                Số điện thoại
+                {t.contact.form.phone}
               </label>
               <input
                 type=""
@@ -152,7 +156,7 @@ export default function Contact() {
             </div>
             <div>
               <label className="block text-white font-semibold mb-2">
-                Tin Nhắn
+                {t.contact.form.message}
               </label>
               <textarea
                 name="message"
@@ -160,7 +164,7 @@ export default function Contact() {
                 onChange={handleChange("message")}
                 rows={5}
                 className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 resize-none"
-                placeholder="Nội dung của bạn..."
+                placeholder={t.contact.form.messagePlaceholder}
                 required
               />
             </div>
@@ -176,10 +180,10 @@ export default function Contact() {
   `}
             >
               {loading
-                ? "Đang gửi..."
+                ? t.contact.sending
                 : submitted
-                ? "✓ Đã gửi!"
-                : "Gửi Tin Nhắn"}
+                ? t.contact.sent
+                : t.contact.SendAMessage}
             </button>
           </form>
 
@@ -194,11 +198,14 @@ export default function Contact() {
             <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-lg p-8 border border-cyan-500/30 h-full flex flex-col justify-between">
               <div>
                 <h3 className="text-2xl font-bold text-white mb-6">
-                  Liên Hệ Trực Tiếp
+                  {t.contact.direct}
                 </h3>
                 <div className="space-y-6">
                   <div>
-                    <p className="text-gray-400 mb-2">Email</p>
+                    <p className="text-gray-400 mb-2">
+                      {" "}
+                      {t.contact.form.email}
+                    </p>
                     <a
                       href="mailto:hello@example.com"
                       className="text-cyan-400 hover:text-cyan-300 transition-colors font-semibold"
@@ -207,7 +214,10 @@ export default function Contact() {
                     </a>
                   </div>
                   <div>
-                    <p className="text-gray-400 mb-2">Phone</p>
+                    <p className="text-gray-400 mb-2">
+                      {" "}
+                      {t.contact.form.phone}
+                    </p>
                     <a
                       href="tel:+84123456789"
                       className="text-cyan-400 hover:text-cyan-300 transition-colors font-semibold"
@@ -216,7 +226,7 @@ export default function Contact() {
                     </a>
                   </div>
                   <div>
-                    <p className="text-gray-400 mb-2">Location</p>
+                    <p className="text-gray-400 mb-2"> {t.contact.location}</p>
                     <p className="text-cyan-400 font-semibold">
                       61 Trần Văn Dư, phường 13, Tân Bình, HCM
                     </p>
@@ -226,7 +236,7 @@ export default function Contact() {
 
               {/* Social Links */}
               <div className="pt-8 border-t border-cyan-500/20">
-                <p className="text-gray-400 mb-4">Theo dõi tôi trên</p>
+                <p className="text-gray-400 mb-4"> {t.contact.location}</p>
                 <div className="flex gap-4">
                   {socialLinks.map((social) => {
                     const Icon = social.icon;
